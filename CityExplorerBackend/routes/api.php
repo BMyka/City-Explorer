@@ -5,15 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\UserController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
  
-Route::get('cities', function(){
-    return 'this is city api';
-});
 
 //get all cities
 Route::get('cities', [CityController::class, 'index']);
@@ -36,6 +34,8 @@ Route::post('locations', [LocationController::class, 'store']);
 Route::delete('location/{id}', [LocationController::class, 'deleteLocation']);
 //update location
 Route::put('location/{id}', [LocationController::class, 'updateLocation']);
+//get locations by city id
+Route::get('locations/{id}', [LocationController::class, 'getLocationsByCityId']);
 
 //get all comments
 Route::get('comments', [CommentController::class, 'index']);
@@ -47,3 +47,17 @@ Route::post('comments', [CommentController::class, 'store']);
 Route::delete('comment/{id}', [CommentController::class, 'deleteComment']);
 //update comment
 Route::put('comment/{id}', [CommentController::class, 'updateComment']);
+//get comments by location id
+Route::get('comments/{id}', [CommentController::class, 'getCommentsByLocationId']);
+
+
+//get all users
+Route::get('users', [UserController::class, 'index']);
+//get user by id
+Route::get('user/{id}', [UserController::class, 'show']);
+//add user
+Route::post('users', [UserController::class, 'store']);
+//remove user
+Route::delete('user/{id}', [UserController::class, 'delete']);
+//update user
+Route::put('user/{id}', [UserController::class, 'update']);

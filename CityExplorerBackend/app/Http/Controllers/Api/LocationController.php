@@ -19,7 +19,7 @@ class LocationController extends Controller
                 'locations' => $locations
             ], 200);
 
-        }else{
+        }else{ 
 
             return response()->json([
                 'status' => 404,
@@ -142,5 +142,22 @@ class LocationController extends Controller
         }
     }
 
+    public function getLocationsByCityId($id)
+    {
+        $locations = Location::where('id_city', $id)->get();
+        if($locations->count() > 0)
+        {
+            return response()->json([
+                'status' => 200,
+                'locations' => $locations
+            ], 200);
 
+        }else{
+
+            return response()->json([
+                'status' => 404,
+                'message' => "No records found"
+            ], 404);
+        }
+    }
 }

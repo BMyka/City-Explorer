@@ -135,4 +135,24 @@ class CommentController extends Controller
             }
         }   
     }
+    
+
+    public function getCommentsByLocationId($id_location)
+    {
+        $comments = Comment::where('id_location', $id_location)->get();
+        if($comments->count() > 0)
+        {
+            return response()->json([
+                'status' => 200,
+                'comments' => $comments
+            ], 200);
+
+        }else{
+
+            return response()->json([
+                'status' => 404,
+                'message' => "No records found"
+            ], 404);
+        } 
+    }
 }
