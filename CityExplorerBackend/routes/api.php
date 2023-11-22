@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AuthController;
+use App\Models\User;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -13,51 +15,58 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
  
 
-//get all cities
-Route::get('cities', [CityController::class, 'index']);
-//get city by id
-Route::get('city/{id}', [CityController::class, 'show']);
-//add city
-Route::post('cities', [CityController::class, 'store']);
-//remove city
-Route::delete('city/{id}', [CityController::class, 'deleteCity']);
-//update city
-Route::put('city/{id}', [CityController::class, 'updateCity']);
+//Admin routes
+Route::middleware(['auth:api', 'role:' . User::ROLE_ADMIN])->group(function () {
+    // All cities
+    Route::delete('city/{id}', [CityController::class, 'deleteCity']);
+    Route::put('city/{id}', [CityController::class, 'updateCity']);
 
-//get all locations
-Route::get('locations', [LocationController::class, 'index']);
-//get location by id
-Route::get('location/{id}', [LocationController::class, 'show']);
-//add location
-Route::post('locations', [LocationController::class, 'store']);
-//remove location
-Route::delete('location/{id}', [LocationController::class, 'deleteLocation']);
-//update location
-Route::put('location/{id}', [LocationController::class, 'updateLocation']);
-//get locations by city id
-Route::get('locations/{id}', [LocationController::class, 'getLocationsByCityId']);
+    // All locations
+    Route::delete('location/{id}', [LocationController::class, 'deleteLocation']);
+    Route::put('location/{id}', [LocationController::class, 'updateLocation']);
 
-//get all comments
-Route::get('comments', [CommentController::class, 'index']);
-//get comment by id
-Route::get('comment/{id}', [CommentController::class, 'show']);
-//add comment
-Route::post('comments', [CommentController::class, 'store']);
-//remove comment
-Route::delete('comment/{id}', [CommentController::class, 'deleteComment']);
-//update comment
-Route::put('comment/{id}', [CommentController::class, 'updateComment']);
-//get comments by location id
-Route::get('comments/{id}', [CommentController::class, 'getCommentsByLocationId']);
+    // All comments
+    Route::delete('comment/{id}', [CommentController::class, 'deleteComment']);
+    Route::put('comment/{id}', [CommentController::class, 'updateComment']);
+
+    // All users
+    Route::get('users', [UserController::class, 'index']);
+    // Route::post('users', [UserController::class, 'store']);
+    Route::delete('user/{id}', [UserController::class, 'delete']);
+    Route::put('user/{id}', [UserController::class, 'update']);
+        
+});
 
 
-//get all users
-Route::get('users', [UserController::class, 'index']);
-//get user by id
-Route::get('user/{id}', [UserController::class, 'show']);
-//add user
+//Shared routes MEMBER and ADMIN, still requires authentication
+Route::middleware('auth:api')->group(function () {
+    // User's own profile
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+
+    // View cities and locations
+    Route::get('cities', [CityController::class, 'index']);
+    Route::post('cities', [CityController::class, 'store']);
+    Route::get('city/{id}', [CityController::class, 'show']);
+
+    Route::get('locations', [LocationController::class, 'index']);
+    Route::post('locations', [LocationController::class, 'store']);
+    Route::get('location/{id}', [LocationController::class, 'show']);
+    Route::get('locations/{id}', [LocationController::class, 'getLocationsByCityId']);
+
+    // View and add comments
+    Route::get('comments', [CommentController::class, 'index']);
+    Route::post('comments', [CommentController::class, 'store']);
+    Route::get('comment/{id}', [CommentController::class, 'show']);
+    Route::get('comments/{id}', [CommentController::class, 'getCommentsByLocationId']);
+
+});
+
+// Guest routes
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+//For testing purposes 
 Route::post('users', [UserController::class, 'store']);
-//remove user
-Route::delete('user/{id}', [UserController::class, 'delete']);
-//update user
-Route::put('user/{id}', [UserController::class, 'update']);
+
+

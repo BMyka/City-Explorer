@@ -57,7 +57,7 @@ class UserController extends Controller
                 'name' => 'required|string|max:191',
                 'email' => 'required|string|max:191',
                 'password' => 'required|string|max:191',
-                'role' => 'Integer|max:19',
+                'role' => 'required|integer|min:0|max:2',
             ]
         );
         if($validator->fails())
@@ -71,7 +71,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email; 
-            $user->password = $request->password;
+            $user->password = bcrypt($request->password);
             $user->role = $request->role;
             $user->save();
             return response()->json([
@@ -91,7 +91,7 @@ class UserController extends Controller
                     'name' => 'required|string|max:191',
                     'email' => 'required|string|max:191',
                     'password' => 'required|string|max:191',
-                    'role' => 'Integer|max:19',
+                    'role' => 'required|integer|min:0|max:2',
                 ]
             );
             if($validator->fails())
@@ -104,7 +104,7 @@ class UserController extends Controller
             else{
                 $user->name = $request->name;
                 $user->email = $request->email; 
-                $user->password = $request->password;
+                $user->password = bcrypt($request->password);
                 $user->role = $request->role;
                 $user->save();
                 return response()->json([
