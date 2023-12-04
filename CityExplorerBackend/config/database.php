@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
+$parsedUrl = 'postgres://xspqrowlbtzizi:22694565115ed7c7838705aae161090130fbffb5b1a420f6c93af37ba41487a7@ec2-44-213-228-107.compute-1.amazonaws.com:5432/d2pqvp9h23abum';
+$DATABASE_URL = parse_url($database_url_string);
 
 return [
 
@@ -8,14 +12,14 @@ return [
     |--------------------------------------------------------------------------
     | Default Database Connection Name
     |--------------------------------------------------------------------------
-    |
+    |parse_url
     | Here you may specify which of the database connections below you wish
     | to use as your default connection for all database work. Of course
     | you may use many connections at once using the Database library.
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,12 +69,12 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'url' => $parsedUrl,
+            'host' =>  $DATABASE_URL['host'],
+            'port' => $DATABASE_URL['port'],
+            'database' => ltrim($DATABASE_URL['path'], '/'),
+            'username' => $DATABASE_URL['user'],
+            'password' => $DATABASE_URL['pass'],
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,

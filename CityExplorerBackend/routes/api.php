@@ -69,4 +69,3 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 //For testing purposes 
 Route::post('users', [UserController::class, 'store']);
 
-
