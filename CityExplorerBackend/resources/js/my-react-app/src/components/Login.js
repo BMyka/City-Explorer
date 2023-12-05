@@ -34,27 +34,38 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+        <div class="container">
+            <div className="card">
+                <div className="card_title">
+                    <h1>Log in</h1>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                <div className="form">
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>Email:</label>
+                            <input
+                                type="email"
+                                value={email}
+                                placeholder="Email"
+                                id="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label>Password:</label>
+                            <input
+                                type="password"
+                                value={password}
+                                placeholder="Password"
+                                id="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <button type="submit">Continue</button>
+                        {errorMessage && <p>{errorMessage}</p>}
+                    </form>
                 </div>
-                <button type="submit">Login</button>
-                {errorMessage && <p>{errorMessage}</p>}
-            </form>
+            </div>
         </div>
     );
 };

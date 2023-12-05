@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+REACT_APP_API_URL=http://localhost:8000
+# REACT_APP_API_URL=https://your-heroku-app-name.herokuapp.com
