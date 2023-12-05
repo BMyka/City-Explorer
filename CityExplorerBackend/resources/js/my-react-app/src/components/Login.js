@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const response = await fetch("http://localhost:8000/api/login", {
-                // Adjust the URL as needed
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -22,6 +23,8 @@ const Login = () => {
 
             if (response.ok) {
                 console.log("Login successful:", data);
+                // Redirect to CityList component
+                navigate("/cities", { state: { authToken: data.token } }); // Adjust the path as needed
             } else {
                 setErrorMessage(data.error || "Login failed");
             }
@@ -34,7 +37,7 @@ const Login = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Email:</label> {}
+                    <label>Email:</label>
                     <input
                         type="email"
                         value={email}
