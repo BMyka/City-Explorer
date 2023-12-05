@@ -14,7 +14,7 @@ const CityList = () => {
         const fetchCities = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:8000/api/cities",
+                    "https://floating-stream-61966-0ac3a23f6432.herokuapp.com/api/cities",
                     {
                         method: "GET",
                         headers: {

@@ -11,13 +11,16 @@ const Login = () => {
         event.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:8000/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
+            const response = await fetch(
+                "https://floating-stream-61966-0ac3a23f6432.herokuapp.com/api/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, password }),
+                }
+            );
 
             const data = await response.json();
 

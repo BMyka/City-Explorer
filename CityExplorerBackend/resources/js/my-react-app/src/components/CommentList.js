@@ -9,7 +9,7 @@ const CommentList = ({ locationId, authToken }) => {
         const fetchComments = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:8000/api/comments/${locationId}`,
+                    `https://floating-stream-61966-0ac3a23f6432.herokuapp.com/api/comments/${locationId}`,
                     {
                         method: "GET",
                         headers: {
