@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CityList = () => {
     const location = useLocation();
@@ -39,6 +40,12 @@ const CityList = () => {
         fetchCities();
     }, [authToken]);
 
+    const navigate = useNavigate();
+
+    const handleCityClick = (cityId) => {
+        navigate(`/locations/${cityId}`, { state: { cityId, authToken } });
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -48,29 +55,26 @@ const CityList = () => {
     }
 
     return (
-        <div>
-            {cities.length > 0 ? (
-                cities.map((city) => (
-                    <div
-                        key={city.id}
-                        style={{
-                            margin: "10px",
-                            border: "1px solid #ccc",
-                            padding: "10px",
-                        }}
-                    >
-                        <h2>{city.name}</h2>
-                        <p>{city.description}</p>
-                        <img
-                            src={city.logo}
-                            alt={city.name}
-                            style={{ width: "100px", height: "100px" }}
-                        />
-                    </div>
-                ))
-            ) : (
-                <p>No cities found.</p>
-            )}
+        <div className="citie-container">
+            <h1 className="citiesH1">Cities</h1>
+            <div className="cities">
+                {cities.length > 0 ? (
+                    cities.map((city) => (
+                        <div
+                            className="city"
+                            key={city.id}
+                            style={{}}
+                            onClick={() => handleCityClick(city.id)}
+                        >
+                            <h2>{city.name}</h2>
+                            <p>{city.description}</p>
+                            <img src={city.logo} alt={city.name} />
+                        </div>
+                    ))
+                ) : (
+                    <p>No cities found.</p>
+                )}
+            </div>
         </div>
     );
 };

@@ -14,7 +14,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "rm -rf ../../../public/my-react-app && react-scripts build && mv build ../../../public/my-react-app",
+        "build": "react-scripts build && mv build ../../../public/my-react-app",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
