@@ -8,8 +8,9 @@
 }
 
 .container,
-.citie-container,
-.locations-container {
+.city-container,
+.locations-container,
+header > div {
     height: 100vh;
     width: 100%;
     align-items: center;
@@ -22,7 +23,7 @@
     );
 }
 
-.citie-container,
+.city-container,
 .locations-container {
     flex-direction: column;
     justify-content: space-evenly;
@@ -36,7 +37,8 @@
 }
 .card,
 .city,
-.location {
+.location,
+.add-circle + form {
     border-radius: 10px;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
     width: 400px;
@@ -129,4 +131,185 @@
     border: none;
     padding: 8px 15px;
     width: 70%;
+}
+
+header ul {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    padding-left: 50%;
+}
+
+header nav {
+    height: 100%;
+}
+
+header {
+    background: black;
+    position: absolute;
+    height: 70px;
+    width: 100%;
+    opacity: 0.7;
+}
+
+header ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+header ul li a:hover {
+    font-size: 22px;
+    color: gray;
+}
+
+.copyright-area {
+    background: #202020;
+    padding: 25px 0;
+}
+
+.copyright-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #878787;
+}
+
+.copyright-text p a {
+    color: #ff5e14;
+    text-decoration: none;
+}
+
+.copyright-area .container {
+    height: unset;
+    width: unset;
+    align-items: unset;
+    background-image: unset;
+}
+
+.add-circle,
+.delete-city-btn {
+    position: absolute;
+    top: 76px;
+    left: 5px;
+    width: 70px;
+    height: 70px;
+    background-color: black;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 58px;
+    justify-content: center;
+    opacity: 0.64;
+}
+
+.add-circle {
+    z-index: 2;
+}
+
+.add-circle + form {
+    position: absolute;
+    background: black;
+    opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+    padding: 10px 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.add-circle + form input,
+.add-circle + form button {
+    height: 44px;
+    padding: 0 7px;
+}
+
+.add-circle + form button {
+    background-color: darkorange;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    padding: 8px 15px;
+    width: 50%;
+}
+
+.delete-city-btn {
+    position: absolute;
+    font-size: 16px;
+    border-radius: 50%;
+    content: "X";
+    top: -16px;
+    right: -16px;
+    opacity: 1;
+    left: unset;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.city {
+    position: relative;
+}
+
+.city img {
+    width: 100%;
+    border-radius: 14px;
+}
+
+.city-content {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    justify-content: space-between;
+}
+
+nav ul li:first-child a:before {
+    content: "";
+    padding-left: 30px;
+    height: 18px;
+    width: 18px;
+    background: url(../img/logout.svg) no-repeat;
+    display: block;
+    position: absolute;
+    left: -19px;
+    top: 6px;
+}
+
+nav ul li:first-child {
+    position: relative;
+}
+
+nav ul li:last-child a:before {
+    content: "";
+    padding-left: 30px;
+    height: 24px;
+    width: 24px;
+    background: url(../img/city.svg) no-repeat;
+    display: block;
+    position: absolute;
+    left: -23px;
+    top: 3px;
+}
+
+nav ul li:last-child {
+    position: relative;
 }

@@ -1,22 +1,32 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useLocation,
+} from "react-router-dom";
 import Login from "./components/Login";
 import CityList from "./components/CityList";
 import LocationList from "./components/LocationList";
-// import NotFoundPage from './components/NotFoundPage';
+import Footer from "./components/Footer";
+import HeaderWrapper from "./components/HeaderWrapper";
+
+import { AuthProvider } from "./components/AuthContext";
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/cities" element={<CityList />} />{" "}
-                <Route path="/locations/:id" element={<LocationList />} />
-                {/* Add this line */}
-                {/* <Route path="*" element={<NotFoundPage />} /> */}
-            </Routes>
-        </Router>
+        <AuthProvider>
+            <Router>
+                <HeaderWrapper />
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/cities" element={<CityList />} />
+                    <Route path="/locations/:id" element={<LocationList />} />
+                    {/* Other routes */}
+                </Routes>
+                <Footer />
+            </Router>
+        </AuthProvider>
     );
 }
-
 export default App;

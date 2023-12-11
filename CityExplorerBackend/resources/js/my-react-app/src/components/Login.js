@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { AuthContext } from "./AuthContext"; // Import AuthContext
+import { useContext } from "react"; // Import useContext
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate(); // Initialize
 
+    const { setAuthToken } = useContext(AuthContext);
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -26,7 +29,7 @@ const Login = () => {
 
             if (response.ok) {
                 console.log("Login successful:", data);
-                // Redirect to CityList component
+                setAuthToken(data.token);
                 navigate("/cities", { state: { authToken: data.token } }); // Adjust the path as needed
             } else {
                 setErrorMessage(data.error || "Login failed");

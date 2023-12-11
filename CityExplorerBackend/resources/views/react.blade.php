@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="root"></div>
-    <script src="{{ asset('my-react-app/static/js/main.24c014dd.js') }}"></script>
+    <script src="{{ asset('my-react-app/static/js/main.fe1e6fa8.js') }}"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </body>
 </html>
